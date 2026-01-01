@@ -1,0 +1,464 @@
+{
+  "conversations": [
+    {
+      "id": "conv-001",
+      "recordId": "conv-001",
+      "tenantId": "demo-tenant",
+      "ownerId": "owner-001",
+      "owner": {
+        "id": "owner-001",
+        "firstName": "Sarah",
+        "lastName": "Johnson",
+        "email": "sarah.johnson@email.com",
+        "phone": "+1 (555) 123-4567"
+      },
+      "pets": [
+        { "id": "pet-001", "name": "Max", "species": "Dog" },
+        { "id": "pet-002", "name": "Bella", "species": "Dog" }
+      ],
+      "lastMessage": {
+        "content": "Thanks so much! Max had a great time. We'll definitely be back!",
+        "createdAt": { "$daysFromNow": 0, "$hour": 14 },
+        "from": "owner"
+      },
+      "unreadCount": 1,
+      "needsReply": true,
+      "status": "active",
+      "lastBookingDate": "Dec 26, 2025",
+      "upcomingBookings": 1,
+      "accountStatus": "Active",
+      "createdAt": { "$daysFromNow": -30 }
+    },
+    {
+      "id": "conv-002",
+      "recordId": "conv-002",
+      "tenantId": "demo-tenant",
+      "ownerId": "owner-003",
+      "owner": {
+        "id": "owner-003",
+        "firstName": "Michael",
+        "lastName": "Chen",
+        "email": "m.chen@email.com",
+        "phone": "+1 (555) 234-5678"
+      },
+      "pets": [
+        { "id": "pet-005", "name": "Luna", "species": "Cat" }
+      ],
+      "lastMessage": {
+        "content": "Can I add an extra grooming session to Luna's stay next week?",
+        "createdAt": { "$daysFromNow": 0, "$hour": 10 },
+        "from": "owner"
+      },
+      "unreadCount": 1,
+      "needsReply": true,
+      "status": "active",
+      "lastBookingDate": "Dec 20, 2025",
+      "upcomingBookings": 2,
+      "accountStatus": "Active",
+      "createdAt": { "$daysFromNow": -14 }
+    },
+    {
+      "id": "conv-003",
+      "recordId": "conv-003",
+      "tenantId": "demo-tenant",
+      "ownerId": "owner-005",
+      "owner": {
+        "id": "owner-005",
+        "firstName": "Emily",
+        "lastName": "Rodriguez",
+        "email": "emily.r@email.com",
+        "phone": "+1 (555) 345-6789"
+      },
+      "pets": [
+        { "id": "pet-008", "name": "Rocky", "species": "Dog" },
+        { "id": "pet-009", "name": "Coco", "species": "Dog" }
+      ],
+      "lastMessage": {
+        "content": "Absolutely! We have availability on those dates. I'll send you a booking confirmation shortly.",
+        "createdAt": { "$daysFromNow": -1, "$hour": 16 },
+        "from": "staff"
+      },
+      "unreadCount": 0,
+      "needsReply": false,
+      "status": "active",
+      "lastBookingDate": "Dec 15, 2025",
+      "upcomingBookings": 1,
+      "accountStatus": "Active",
+      "createdAt": { "$daysFromNow": -21 }
+    },
+    {
+      "id": "conv-004",
+      "recordId": "conv-004",
+      "tenantId": "demo-tenant",
+      "ownerId": "owner-007",
+      "owner": {
+        "id": "owner-007",
+        "firstName": "David",
+        "lastName": "Kim",
+        "email": "david.kim@email.com",
+        "phone": "+1 (555) 456-7890"
+      },
+      "pets": [
+        { "id": "pet-012", "name": "Buddy", "species": "Dog" }
+      ],
+      "lastMessage": {
+        "content": "Buddy's vaccination records have been updated. You're all set for next month's stay!",
+        "createdAt": { "$daysFromNow": -2, "$hour": 11 },
+        "from": "staff"
+      },
+      "unreadCount": 0,
+      "needsReply": false,
+      "status": "active",
+      "lastBookingDate": "Dec 10, 2025",
+      "upcomingBookings": 1,
+      "accountStatus": "Active",
+      "createdAt": { "$daysFromNow": -45 }
+    },
+    {
+      "id": "conv-005",
+      "recordId": "conv-005",
+      "tenantId": "demo-tenant",
+      "ownerId": "owner-009",
+      "owner": {
+        "id": "owner-009",
+        "firstName": "Jessica",
+        "lastName": "Martinez",
+        "email": "jess.m@email.com",
+        "phone": "+1 (555) 567-8901"
+      },
+      "pets": [
+        { "id": "pet-015", "name": "Daisy", "species": "Dog" }
+      ],
+      "lastMessage": {
+        "content": "Is it possible to schedule a meet-and-greet before Daisy's first boarding stay?",
+        "createdAt": { "$daysFromNow": -1, "$hour": 9 },
+        "from": "owner"
+      },
+      "unreadCount": 1,
+      "needsReply": true,
+      "status": "active",
+      "lastBookingDate": "None",
+      "upcomingBookings": 0,
+      "accountStatus": "Active",
+      "createdAt": { "$daysFromNow": -7 }
+    },
+    {
+      "id": "conv-006",
+      "recordId": "conv-006",
+      "tenantId": "demo-tenant",
+      "ownerId": "owner-011",
+      "owner": {
+        "id": "owner-011",
+        "firstName": "Robert",
+        "lastName": "Thompson",
+        "email": "r.thompson@email.com",
+        "phone": "+1 (555) 678-9012"
+      },
+      "pets": [
+        { "id": "pet-018", "name": "Charlie", "species": "Dog" },
+        { "id": "pet-019", "name": "Oscar", "species": "Cat" }
+      ],
+      "lastMessage": {
+        "content": "Thank you for the photo updates! They look so happy!",
+        "createdAt": { "$daysFromNow": -3, "$hour": 15 },
+        "from": "owner"
+      },
+      "unreadCount": 0,
+      "needsReply": false,
+      "status": "active",
+      "lastBookingDate": "Dec 22, 2025",
+      "upcomingBookings": 0,
+      "accountStatus": "Active",
+      "createdAt": { "$daysFromNow": -60 }
+    },
+    {
+      "id": "conv-007",
+      "recordId": "conv-007",
+      "tenantId": "demo-tenant",
+      "ownerId": "owner-013",
+      "owner": {
+        "id": "owner-013",
+        "firstName": "Amanda",
+        "lastName": "Wilson",
+        "email": "a.wilson@email.com",
+        "phone": "+1 (555) 789-0123"
+      },
+      "pets": [
+        { "id": "pet-022", "name": "Milo", "species": "Dog" }
+      ],
+      "lastMessage": {
+        "content": "Just a reminder that Milo has a slight food allergy - no chicken please!",
+        "createdAt": { "$daysFromNow": -4, "$hour": 8 },
+        "from": "owner"
+      },
+      "unreadCount": 0,
+      "needsReply": false,
+      "status": "active",
+      "lastBookingDate": "Dec 18, 2025",
+      "upcomingBookings": 1,
+      "accountStatus": "Active",
+      "createdAt": { "$daysFromNow": -35 }
+    },
+    {
+      "id": "conv-008",
+      "recordId": "conv-008",
+      "tenantId": "demo-tenant",
+      "ownerId": "owner-015",
+      "owner": {
+        "id": "owner-015",
+        "firstName": "Christopher",
+        "lastName": "Lee",
+        "email": "chris.lee@email.com",
+        "phone": "+1 (555) 890-1234"
+      },
+      "pets": [
+        { "id": "pet-025", "name": "Sophie", "species": "Cat" }
+      ],
+      "lastMessage": {
+        "content": "Your invoice has been sent. Please let us know if you have any questions!",
+        "createdAt": { "$daysFromNow": -5, "$hour": 12 },
+        "from": "staff"
+      },
+      "unreadCount": 0,
+      "needsReply": false,
+      "status": "active",
+      "lastBookingDate": "Dec 5, 2025",
+      "upcomingBookings": 0,
+      "accountStatus": "Active",
+      "createdAt": { "$daysFromNow": -28 }
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg-001",
+      "conversationId": "conv-001",
+      "content": "Hi! I wanted to check if Max is settling in okay?",
+      "senderType": "owner",
+      "createdAt": { "$daysFromNow": -2, "$hour": 9 }
+    },
+    {
+      "id": "msg-002",
+      "conversationId": "conv-001",
+      "content": "Hi Sarah! Max is doing great! He's made friends with a golden retriever and they've been playing all morning. I'll send you some photos shortly!",
+      "senderType": "staff",
+      "staffId": "staff-002",
+      "staffName": "Maria Garcia",
+      "createdAt": { "$daysFromNow": -2, "$hour": 10 }
+    },
+    {
+      "id": "msg-003",
+      "conversationId": "conv-001",
+      "content": "That's wonderful to hear! Thank you for the update!",
+      "senderType": "owner",
+      "createdAt": { "$daysFromNow": -2, "$hour": 10 }
+    },
+    {
+      "id": "msg-004",
+      "conversationId": "conv-001",
+      "content": "Max is all ready for pickup! He had a fantastic stay.",
+      "senderType": "staff",
+      "staffId": "staff-002",
+      "staffName": "Maria Garcia",
+      "createdAt": { "$daysFromNow": 0, "$hour": 12 }
+    },
+    {
+      "id": "msg-005",
+      "conversationId": "conv-001",
+      "content": "Thanks so much! Max had a great time. We'll definitely be back!",
+      "senderType": "owner",
+      "createdAt": { "$daysFromNow": 0, "$hour": 14 }
+    },
+    {
+      "id": "msg-006",
+      "conversationId": "conv-002",
+      "content": "Hi, I have Luna booked for next week. Can I add an extra grooming session?",
+      "senderType": "owner",
+      "createdAt": { "$daysFromNow": 0, "$hour": 10 }
+    },
+    {
+      "id": "msg-010",
+      "conversationId": "conv-003",
+      "content": "Hi! I was wondering if you have availability for Rocky and Coco next month? We're planning a trip from the 15th to the 22nd.",
+      "senderType": "owner",
+      "createdAt": { "$daysFromNow": -2, "$hour": 10 }
+    },
+    {
+      "id": "msg-011",
+      "conversationId": "conv-003",
+      "content": "Hi Emily! Let me check our availability for those dates.",
+      "senderType": "staff",
+      "staffId": "staff-001",
+      "staffName": "John Smith",
+      "createdAt": { "$daysFromNow": -2, "$hour": 11 }
+    },
+    {
+      "id": "msg-012",
+      "conversationId": "conv-003",
+      "content": "Great news! We have space for both Rocky and Coco. Would you like our standard boarding package or the premium suite?",
+      "senderType": "staff",
+      "staffId": "staff-001",
+      "staffName": "John Smith",
+      "createdAt": { "$daysFromNow": -2, "$hour": 11 }
+    },
+    {
+      "id": "msg-013",
+      "conversationId": "conv-003",
+      "content": "The premium suite sounds great! They love having extra space to play.",
+      "senderType": "owner",
+      "createdAt": { "$daysFromNow": -2, "$hour": 14 }
+    },
+    {
+      "id": "msg-014",
+      "conversationId": "conv-003",
+      "content": "Absolutely! We have availability on those dates. I'll send you a booking confirmation shortly.",
+      "senderType": "staff",
+      "staffId": "staff-001",
+      "staffName": "John Smith",
+      "createdAt": { "$daysFromNow": -1, "$hour": 16 }
+    },
+    {
+      "id": "msg-015",
+      "conversationId": "conv-004",
+      "content": "Hello! I just uploaded Buddy's new vaccination records to the portal. Can you confirm you received them?",
+      "senderType": "owner",
+      "createdAt": { "$daysFromNow": -3, "$hour": 9 }
+    },
+    {
+      "id": "msg-016",
+      "conversationId": "conv-004",
+      "content": "Hi David! Yes, I can see the uploaded documents. Let me verify them with our records.",
+      "senderType": "staff",
+      "staffId": "staff-002",
+      "staffName": "Maria Garcia",
+      "createdAt": { "$daysFromNow": -3, "$hour": 10 }
+    },
+    {
+      "id": "msg-017",
+      "conversationId": "conv-004",
+      "content": "Buddy's vaccination records have been updated. You're all set for next month's stay!",
+      "senderType": "staff",
+      "staffId": "staff-002",
+      "staffName": "Maria Garcia",
+      "createdAt": { "$daysFromNow": -2, "$hour": 11 }
+    },
+    {
+      "id": "msg-007",
+      "conversationId": "conv-005",
+      "content": "Hello! I'm a new client and I'd like to book Daisy for boarding.",
+      "senderType": "owner",
+      "createdAt": { "$daysFromNow": -7, "$hour": 14 }
+    },
+    {
+      "id": "msg-008",
+      "conversationId": "conv-005",
+      "content": "Welcome! We'd love to have Daisy. What dates were you thinking?",
+      "senderType": "staff",
+      "staffId": "staff-001",
+      "staffName": "John Smith",
+      "createdAt": { "$daysFromNow": -7, "$hour": 15 }
+    },
+    {
+      "id": "msg-009",
+      "conversationId": "conv-005",
+      "content": "Is it possible to schedule a meet-and-greet before Daisy's first boarding stay?",
+      "senderType": "owner",
+      "createdAt": { "$daysFromNow": -1, "$hour": 9 }
+    },
+    {
+      "id": "msg-018",
+      "conversationId": "conv-006",
+      "content": "Hi! Just wanted to let you know Charlie and Oscar are doing wonderfully. Here are some photos from their playtime today!",
+      "senderType": "staff",
+      "staffId": "staff-002",
+      "staffName": "Maria Garcia",
+      "createdAt": { "$daysFromNow": -4, "$hour": 14 }
+    },
+    {
+      "id": "msg-019",
+      "conversationId": "conv-006",
+      "content": "Oh my goodness, they look so happy! Is Oscar getting along with the other cats?",
+      "senderType": "owner",
+      "createdAt": { "$daysFromNow": -4, "$hour": 14 }
+    },
+    {
+      "id": "msg-020",
+      "conversationId": "conv-006",
+      "content": "Oscar has been very social! He's made friends with a tabby named Whiskers. They nap together by the window.",
+      "senderType": "staff",
+      "staffId": "staff-002",
+      "staffName": "Maria Garcia",
+      "createdAt": { "$daysFromNow": -4, "$hour": 15 }
+    },
+    {
+      "id": "msg-021",
+      "conversationId": "conv-006",
+      "content": "Thank you for the photo updates! They look so happy!",
+      "senderType": "owner",
+      "createdAt": { "$daysFromNow": -3, "$hour": 15 }
+    },
+    {
+      "id": "msg-022",
+      "conversationId": "conv-007",
+      "content": "Hi! Milo is booked for next week. I wanted to remind you about his food allergy.",
+      "senderType": "owner",
+      "createdAt": { "$daysFromNow": -5, "$hour": 8 }
+    },
+    {
+      "id": "msg-023",
+      "conversationId": "conv-007",
+      "content": "Thank you for the reminder, Amanda! What specifically should we avoid?",
+      "senderType": "staff",
+      "staffId": "staff-001",
+      "staffName": "John Smith",
+      "createdAt": { "$daysFromNow": -5, "$hour": 9 }
+    },
+    {
+      "id": "msg-024",
+      "conversationId": "conv-007",
+      "content": "Just a reminder that Milo has a slight food allergy - no chicken please!",
+      "senderType": "owner",
+      "createdAt": { "$daysFromNow": -4, "$hour": 8 }
+    },
+    {
+      "id": "msg-025",
+      "conversationId": "conv-007",
+      "content": "Noted! I've added this to Milo's profile. We'll make sure he only gets chicken-free meals. We have some great turkey and beef options he'll love!",
+      "senderType": "staff",
+      "staffId": "staff-001",
+      "staffName": "John Smith",
+      "createdAt": { "$daysFromNow": -4, "$hour": 9 }
+    },
+    {
+      "id": "msg-026",
+      "conversationId": "conv-008",
+      "content": "Hi! Sophie had a great stay last week. I wanted to ask about your grooming services.",
+      "senderType": "owner",
+      "createdAt": { "$daysFromNow": -6, "$hour": 10 }
+    },
+    {
+      "id": "msg-027",
+      "conversationId": "conv-008",
+      "content": "Hi Christopher! We offer full grooming services for cats. Would you like to add it to Sophie's next visit?",
+      "senderType": "staff",
+      "staffId": "staff-002",
+      "staffName": "Maria Garcia",
+      "createdAt": { "$daysFromNow": -6, "$hour": 11 }
+    },
+    {
+      "id": "msg-028",
+      "conversationId": "conv-008",
+      "content": "That would be great! Also, I received the invoice but had a question about one of the charges.",
+      "senderType": "owner",
+      "createdAt": { "$daysFromNow": -5, "$hour": 10 }
+    },
+    {
+      "id": "msg-029",
+      "conversationId": "conv-008",
+      "content": "Your invoice has been sent. Please let us know if you have any questions!",
+      "senderType": "staff",
+      "staffId": "staff-002",
+      "staffName": "Maria Garcia",
+      "createdAt": { "$daysFromNow": -5, "$hour": 12 }
+    }
+  ]
+}

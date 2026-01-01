@@ -1,0 +1,91 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+.vite/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# IDE and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+.project
+.settings/
+.classpath
+*.code-workspace
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+e2e/reports/
+e2e/test-results/
+playwright-report/
+playwright/.cache/
+test-results/
+*.spec.js-snapshots/
+
+# Caches
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+
+# Misc
+*.pem
+*.local
+.vercel
+.netlify
+.output
+
+# PWA generated files
+dev-dist/
+
+# Sentry
+.sentryclirc
+
+# Local config overrides
+*.local.js
+*.local.json
+
+# Lighthouse CI reports
+.lighthouseci/
+
+# Playwright MCP screenshots
+.playwright-mcp/
+
+# Temp comparison files
+D*.txt

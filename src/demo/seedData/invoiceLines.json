@@ -1,0 +1,14 @@
+[
+  { "id": "il-001", "invoiceId": "invoice-001", "description": "Boarding - 3 nights", "quantity": 3, "unitPriceCents": 5500, "totalCents": 16500 },
+  { "id": "il-002", "invoiceId": "invoice-002", "description": "Boarding - 4 nights", "quantity": 4, "unitPriceCents": 5500, "totalCents": 22000 },
+  { "id": "il-003", "invoiceId": "invoice-003", "description": "Boarding - 3 nights", "quantity": 3, "unitPriceCents": 5500, "totalCents": 16500 },
+  { "id": "il-004", "invoiceId": "invoice-004", "description": "Boarding - VIP Suite - 3 nights", "quantity": 3, "unitPriceCents": 7500, "totalCents": 22500 },
+  { "id": "il-005", "invoiceId": "invoice-005", "description": "Boarding - 3 nights", "quantity": 3, "unitPriceCents": 5500, "totalCents": 16500 },
+  { "id": "il-006", "invoiceId": "invoice-006", "description": "Daycare - Full Day", "quantity": 1, "unitPriceCents": 3500, "totalCents": 3500 },
+  { "id": "il-007", "invoiceId": "invoice-007", "description": "Boarding - 5 nights", "quantity": 5, "unitPriceCents": 5500, "totalCents": 27500 },
+  { "id": "il-008", "invoiceId": "invoice-008", "description": "Boarding - 6 nights", "quantity": 6, "unitPriceCents": 5500, "totalCents": 33000 },
+  { "id": "il-009", "invoiceId": "invoice-009", "description": "Boarding - 6 nights", "quantity": 6, "unitPriceCents": 5500, "totalCents": 33000 },
+  { "id": "il-010", "invoiceId": "invoice-010", "description": "Full Groom", "quantity": 1, "unitPriceCents": 7500, "totalCents": 7500 },
+  { "id": "il-011", "invoiceId": "invoice-011", "description": "Boarding - 4 nights", "quantity": 4, "unitPriceCents": 5500, "totalCents": 22000 },
+  { "id": "il-012", "invoiceId": "invoice-012", "description": "Daycare - Full Day", "quantity": 1, "unitPriceCents": 3500, "totalCents": 3500 }
+]

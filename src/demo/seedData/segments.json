@@ -1,0 +1,167 @@
+[
+  {
+    "id": "segment-001",
+    "recordId": "segment-001",
+    "tenantId": "demo-tenant",
+    "name": "VIP Clients",
+    "description": "High-value clients with 5+ bookings or $1000+ lifetime spend",
+    "type": "dynamic",
+    "objectType": "owner",
+    "memberCount": 8,
+    "status": "active",
+    "conditions": {
+      "logic": "or",
+      "conditions": [
+        { "property": "totalBookings", "operator": "gte", "value": 5 },
+        { "property": "lifetimeSpend", "operator": "gte", "value": 100000 }
+      ]
+    },
+    "createdAt": { "$daysFromNow": -60 },
+    "updatedAt": { "$daysFromNow": -1 },
+    "lastRefreshedAt": { "$daysFromNow": -1 },
+    "createdBy": "staff-001"
+  },
+  {
+    "id": "segment-002",
+    "recordId": "segment-002",
+    "tenantId": "demo-tenant",
+    "name": "New Clients (Last 30 Days)",
+    "description": "Owners who registered in the last 30 days",
+    "type": "dynamic",
+    "objectType": "owner",
+    "memberCount": 5,
+    "status": "active",
+    "conditions": {
+      "logic": "and",
+      "conditions": [
+        { "property": "createdAt", "operator": "is_within_days", "value": 30 }
+      ]
+    },
+    "createdAt": { "$daysFromNow": -45 },
+    "updatedAt": { "$daysFromNow": -2 },
+    "lastRefreshedAt": { "$daysFromNow": -2 },
+    "createdBy": "staff-001"
+  },
+  {
+    "id": "segment-003",
+    "recordId": "segment-003",
+    "tenantId": "demo-tenant",
+    "name": "Dogs Only",
+    "description": "All dog owners for dog-specific promotions",
+    "type": "dynamic",
+    "objectType": "owner",
+    "memberCount": 18,
+    "status": "active",
+    "conditions": {
+      "logic": "and",
+      "conditions": [
+        { "property": "pets.species", "operator": "contains", "value": "Dog" }
+      ]
+    },
+    "createdAt": { "$daysFromNow": -30 },
+    "updatedAt": { "$daysFromNow": -5 },
+    "lastRefreshedAt": { "$daysFromNow": -5 },
+    "createdBy": "staff-001"
+  },
+  {
+    "id": "segment-004",
+    "recordId": "segment-004",
+    "tenantId": "demo-tenant",
+    "name": "Inactive Clients",
+    "description": "No bookings in the last 60 days - re-engagement targets",
+    "type": "dynamic",
+    "objectType": "owner",
+    "memberCount": 6,
+    "status": "active",
+    "conditions": {
+      "logic": "and",
+      "conditions": [
+        { "property": "lastBookingDate", "operator": "is_more_than_days_ago", "value": 60 }
+      ]
+    },
+    "createdAt": { "$daysFromNow": -20 },
+    "updatedAt": { "$daysFromNow": -3 },
+    "lastRefreshedAt": { "$daysFromNow": -3 },
+    "createdBy": "staff-002"
+  },
+  {
+    "id": "segment-005",
+    "recordId": "segment-005",
+    "tenantId": "demo-tenant",
+    "name": "Expiring Vaccinations",
+    "description": "Pets with vaccinations expiring in next 30 days",
+    "type": "dynamic",
+    "objectType": "pet",
+    "memberCount": 12,
+    "status": "active",
+    "conditions": {
+      "logic": "and",
+      "conditions": [
+        { "property": "vaccinations.expiryDate", "operator": "is_within_days", "value": 30 }
+      ]
+    },
+    "createdAt": { "$daysFromNow": -15 },
+    "updatedAt": { "$daysFromNow": -1 },
+    "lastRefreshedAt": { "$daysFromNow": -1 },
+    "createdBy": "staff-001"
+  },
+  {
+    "id": "segment-006",
+    "recordId": "segment-006",
+    "tenantId": "demo-tenant",
+    "name": "Large Dogs",
+    "description": "Dogs over 50 lbs - for large kennel availability alerts",
+    "type": "dynamic",
+    "objectType": "pet",
+    "memberCount": 9,
+    "status": "active",
+    "conditions": {
+      "logic": "and",
+      "conditions": [
+        { "property": "species", "operator": "eq", "value": "Dog" },
+        { "property": "weight", "operator": "gte", "value": 50 }
+      ]
+    },
+    "createdAt": { "$daysFromNow": -10 },
+    "updatedAt": { "$daysFromNow": -2 },
+    "lastRefreshedAt": { "$daysFromNow": -2 },
+    "createdBy": "staff-001"
+  },
+  {
+    "id": "segment-007",
+    "recordId": "segment-007",
+    "tenantId": "demo-tenant",
+    "name": "Birthday This Month",
+    "description": "Pets with birthdays this month for special treats",
+    "type": "dynamic",
+    "objectType": "pet",
+    "memberCount": 4,
+    "status": "active",
+    "conditions": {
+      "logic": "and",
+      "conditions": [
+        { "property": "birthMonth", "operator": "eq", "value": "current_month" }
+      ]
+    },
+    "createdAt": { "$daysFromNow": -25 },
+    "updatedAt": { "$daysFromNow": -1 },
+    "lastRefreshedAt": { "$daysFromNow": -1 },
+    "createdBy": "staff-002"
+  },
+  {
+    "id": "segment-008",
+    "recordId": "segment-008",
+    "tenantId": "demo-tenant",
+    "name": "Holiday Promo List",
+    "description": "Manual list for holiday promotion campaign",
+    "type": "static",
+    "objectType": "owner",
+    "memberCount": 15,
+    "status": "active",
+    "conditions": null,
+    "createdAt": { "$daysFromNow": -5 },
+    "updatedAt": { "$daysFromNow": -1 },
+    "lastRefreshedAt": null,
+    "createdBy": "staff-001"
+  }
+]

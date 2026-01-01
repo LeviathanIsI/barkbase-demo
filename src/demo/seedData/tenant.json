@@ -1,0 +1,44 @@
+{
+  "id": "demo-tenant",
+  "recordId": "demo-tenant",
+  "slug": "demo",
+  "name": "Happy Paws Pet Resort",
+  "accountCode": "BK-DEMO01",
+  "plan": "ENTERPRISE",
+  "features": {
+    "vaccinations": true,
+    "incidents": true,
+    "invoicing": true,
+    "payments": true,
+    "packages": true,
+    "reports": true,
+    "workflows": true,
+    "customFields": true,
+    "onlineBooking": true,
+    "sms": true,
+    "email": true
+  },
+  "settings": {
+    "timezone": "America/New_York",
+    "currency": "USD",
+    "dateFormat": "MM/DD/YYYY",
+    "timeFormat": "12h",
+    "defaultCheckInTime": "09:00",
+    "defaultCheckOutTime": "17:00"
+  },
+  "terminology": {
+    "pet": "Pet",
+    "pets": "Pets",
+    "owner": "Owner",
+    "owners": "Owners",
+    "kennel": "Kennel",
+    "kennels": "Kennels",
+    "booking": "Booking",
+    "bookings": "Bookings"
+  },
+  "theme": {
+    "primaryColor": "#2563eb",
+    "logo": null
+  },
+  "createdAt": { "$daysFromNow": -365 }
+}

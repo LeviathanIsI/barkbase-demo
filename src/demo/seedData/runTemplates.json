@@ -1,0 +1,46 @@
+[
+  {
+    "id": "rt-001",
+    "recordId": "rt-001",
+    "tenantId": "demo-tenant",
+    "name": "Morning Play Session",
+    "description": "First play session of the day",
+    "startTime": "08:00",
+    "endTime": "10:00",
+    "daysOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "isActive": true
+  },
+  {
+    "id": "rt-002",
+    "recordId": "rt-002",
+    "tenantId": "demo-tenant",
+    "name": "Midday Play Session",
+    "description": "Lunch time play and socialization",
+    "startTime": "11:00",
+    "endTime": "13:00",
+    "daysOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "isActive": true
+  },
+  {
+    "id": "rt-003",
+    "recordId": "rt-003",
+    "tenantId": "demo-tenant",
+    "name": "Afternoon Play Session",
+    "description": "Afternoon exercise and play",
+    "startTime": "14:00",
+    "endTime": "16:00",
+    "daysOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "isActive": true
+  },
+  {
+    "id": "rt-004",
+    "recordId": "rt-004",
+    "tenantId": "demo-tenant",
+    "name": "Evening Wind Down",
+    "description": "Light play before dinner",
+    "startTime": "17:00",
+    "endTime": "18:00",
+    "daysOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "isActive": true
+  }
+]

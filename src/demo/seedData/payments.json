@@ -1,0 +1,12 @@
+[
+  { "id": "payment-001", "invoiceId": "invoice-001", "ownerId": "owner-001", "amountCents": 17820, "method": "CARD", "status": "SUCCEEDED", "processedAt": { "$daysFromNow": -6 }, "createdAt": { "$daysFromNow": -6 } },
+  { "id": "payment-002", "invoiceId": "invoice-002", "ownerId": "owner-002", "amountCents": 23760, "method": "CARD", "status": "SUCCEEDED", "processedAt": { "$daysFromNow": -9 }, "createdAt": { "$daysFromNow": -9 } },
+  { "id": "payment-003", "invoiceId": "invoice-003", "ownerId": "owner-021", "amountCents": 17820, "method": "CARD", "status": "SUCCEEDED", "processedAt": { "$daysFromNow": -3 }, "createdAt": { "$daysFromNow": -3 } },
+  { "id": "payment-004", "invoiceId": "invoice-004", "ownerId": "owner-022", "amountCents": 24300, "method": "CARD", "status": "SUCCEEDED", "processedAt": { "$daysFromNow": -2 }, "createdAt": { "$daysFromNow": -2 } },
+  { "id": "payment-005", "invoiceId": "invoice-005", "ownerId": "owner-023", "amountCents": 17820, "method": "CARD", "status": "SUCCEEDED", "processedAt": { "$daysFromNow": -1 }, "createdAt": { "$daysFromNow": -1 } },
+  { "id": "payment-006", "invoiceId": "invoice-006", "ownerId": "owner-013", "amountCents": 3780, "method": "CASH", "status": "SUCCEEDED", "processedAt": { "$daysFromNow": -1 }, "createdAt": { "$daysFromNow": -1 } },
+  { "id": "payment-007", "invoiceId": "invoice-007", "ownerId": "owner-001", "amountCents": 5500, "method": "CARD", "status": "SUCCEEDED", "notes": "Deposit", "processedAt": { "$daysFromNow": -3 }, "createdAt": { "$daysFromNow": -3 } },
+  { "id": "payment-008", "invoiceId": "invoice-008", "ownerId": "owner-002", "amountCents": 6600, "method": "CARD", "status": "SUCCEEDED", "notes": "Deposit", "processedAt": { "$daysFromNow": -2 }, "createdAt": { "$daysFromNow": -2 } },
+  { "id": "payment-009", "invoiceId": "invoice-009", "ownerId": "owner-003", "amountCents": 6600, "method": "CARD", "status": "SUCCEEDED", "notes": "Deposit", "processedAt": { "$daysFromNow": -1 }, "createdAt": { "$daysFromNow": -1 } },
+  { "id": "payment-010", "invoiceId": "invoice-011", "ownerId": "owner-012", "amountCents": 4400, "method": "CARD", "status": "SUCCEEDED", "notes": "Deposit", "processedAt": { "$daysFromNow": -1 }, "createdAt": { "$daysFromNow": -1 } }
+]

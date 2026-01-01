@@ -1,0 +1,516 @@
+/* Import design tokens */
+@import "./styles/tokens.css";
+@import "./styles/design-tokens.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================
+   TYPOGRAPHY UTILITIES - 3-Weight System
+   ======================================== */
+
+@layer utilities {
+  /* ===== TYPOGRAPHY HIERARCHY - Max 3 Font Weights ===== */
+  /* Based on enterprise reduction from 40+ text styles to 3 weights */
+
+  /* Headings - font-semibold (600) */
+  .text-heading-xl {
+    @apply text-3xl font-semibold text-[var(--text-primary)] leading-tight tracking-tight;
+  }
+
+  .text-heading-lg {
+    @apply text-2xl font-semibold text-[var(--text-primary)] leading-tight tracking-tight;
+  }
+
+  .text-heading {
+    @apply text-xl font-semibold text-[var(--text-primary)] leading-snug;
+  }
+
+  .text-heading-sm {
+    @apply text-lg font-semibold text-[var(--text-primary)] leading-snug;
+  }
+
+  .text-heading-xs {
+    @apply text-base font-semibold text-[var(--text-primary)] leading-normal;
+  }
+
+  /* Body Text - font-normal (400) */
+  .text-body-lg {
+    @apply text-lg font-normal text-[var(--text-primary)] leading-relaxed;
+  }
+
+  .text-body {
+    @apply text-base font-normal text-[var(--text-primary)] leading-normal;
+  }
+
+  .text-body-sm {
+    @apply text-sm font-normal text-[var(--text-primary)] leading-normal;
+  }
+
+  /* Labels - font-medium (500) */
+  .text-label {
+    @apply text-sm font-medium text-[var(--text-secondary)] uppercase tracking-wide;
+  }
+
+  .text-label-caps {
+    @apply text-xs font-medium text-[var(--text-secondary)] uppercase tracking-wider;
+  }
+
+  /* Secondary Text */
+  .text-secondary {
+    @apply text-sm font-normal text-[var(--text-secondary)];
+  }
+
+  .text-tertiary {
+    @apply text-sm font-normal text-[var(--text-tertiary)];
+  }
+
+  /* Captions */
+  .text-caption {
+    @apply text-xs font-normal text-[var(--text-secondary)];
+  }
+
+  /* Mono/Code */
+  .text-mono {
+    @apply font-mono text-sm text-[var(--text-primary)];
+  }
+}
+
+/* ========================================
+   GLOBAL RESETS & BASE STYLES
+   ======================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'tnum' 1, 'lnum' 1; /* Tabular and lining figures */
+}
+
+/* ========================================
+   TYPOGRAPHY - Professional Hierarchy
+   ======================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3; /* Professional heading line-height */
+}
+
+h1 {
+  font-size: var(--text-4xl); /* 36px */
+  font-weight: var(--font-weight-semibold); /* FIXED: was bold, now semibold */
+}
+
+h2 {
+  font-size: var(--text-2xl); /* 24px */
+  font-weight: var(--font-weight-semibold);
+}
+
+h3 {
+  font-size: var(--text-xl); /* 20px */
+  font-weight: var(--font-weight-semibold); /* FIXED: was medium, now semibold for consistency */
+}
+
+h4 {
+  font-size: var(--text-lg);
+}
+
+p {
+  margin: 0;
+  line-height: var(--leading-normal);
+}
+
+a {
+  color: var(--color-primary-600);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-700);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Links inside buttons should inherit the button's text color */
+button a,
+button a:hover {
+  color: inherit;
+}
+
+/* ========================================
+   PROFESSIONAL FORM ELEMENTS
+   ======================================== */
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+/* Ensure all form inputs have visible text and placeholders */
+input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"]),
+select,
+textarea {
+  color: #111827; /* gray-900 - dark text for readability */
+}
+
+.dark input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"]),
+.dark select,
+.dark textarea {
+  color: var(--input-text); /* Light text in dark mode */
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"])::placeholder,
+textarea::placeholder {
+  color: #4B5563; /* gray-600 - darker placeholder for visibility */
+  opacity: 0.75;
+}
+
+.dark input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"])::placeholder,
+.dark textarea::placeholder {
+  color: var(--input-placeholder);
+  opacity: 0.7;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: var(--focus-ring);
+}
+
+::placeholder {
+  color: #6B7280; /* gray-500 - darker for better contrast */
+  opacity: 0.8;
+}
+
+.dark ::placeholder {
+  color: var(--input-placeholder);
+  opacity: 0.7;
+}
+
+::selection {
+  background-color: var(--color-primary-100);
+  color: var(--text-primary);
+}
+
+.dark ::selection {
+  background-color: rgba(139, 92, 246, 0.3);
+  color: var(--text-primary);
+}
+
+/* ========================================
+   SCROLLBARS - Subtle Professional Style
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray-300);
+  border-radius: var(--radius-lg);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: var(--radius-lg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-400);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* ========================================
+   UTILITY CLASSES - Professional Components
+   ======================================== */
+
+@layer components {
+  /* Professional Card */
+  .card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--card-padding);
+  }
+
+  /* Professional Button Base */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+    border-radius: var(--radius-md);
+    border: var(--border-width) solid transparent;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    height: var(--button-height);
+    min-width: 80px;
+  }
+
+  .btn:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Button Variants */
+  .btn-primary {
+    background-color: var(--color-primary-600);
+    color: var(--text-inverse);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background-color: var(--color-primary-700);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    border-color: var(--border-primary);
+    color: var(--text-primary);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background-color: var(--bg-tertiary);
+  }
+
+  .btn-tertiary {
+    background-color: transparent;
+    color: var(--color-primary-600);
+  }
+
+  .btn-tertiary:hover:not(:disabled) {
+    background-color: var(--color-primary-50);
+  }
+
+  /* Professional Input */
+  .input {
+    height: var(--input-height);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-primary);
+    border: var(--border-width) solid var(--border-primary);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+  }
+
+  .input:hover {
+    border-color: var(--color-gray-400);
+  }
+
+  .input:focus {
+    border-color: var(--border-focus);
+    box-shadow: var(--focus-ring);
+  }
+
+  /* Professional Table */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  .table thead {
+    background: var(--bg-tertiary);
+    border-bottom: 2px solid var(--border-primary);
+  }
+
+  .table th {
+    padding: var(--space-3) var(--space-6); /* py-3 px-6 = 12px 24px for generous header padding */
+    text-align: left;
+    font-weight: var(--font-weight-medium);
+    color: var(--text-secondary);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+  }
+
+  .table td {
+    padding: var(--space-4) var(--space-6); /* py-4 px-6 = 16px 24px for generous cell padding */
+    border-bottom: var(--border-width) solid var(--border-secondary);
+  }
+
+  .table tr:hover {
+    background: var(--bg-secondary);
+  }
+
+  /* Badge Component */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px var(--spacing-sm);
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-medium);
+    border-radius: var(--radius-md);
+    line-height: 1.5;
+  }
+
+  .badge-primary {
+    background: var(--color-primary-100);
+    color: var(--color-primary-700);
+  }
+
+  .badge-success {
+    background: var(--color-success-100);
+    color: var(--color-success-700);
+  }
+
+  .badge-warning {
+    background: var(--color-warning-100);
+    color: var(--color-warning-700);
+  }
+
+  .badge-error {
+    background: var(--color-error-100);
+    color: var(--color-error-700);
+  }
+}
+
+/* ========================================
+   OFFLINE MODE INDICATOR
+   ======================================== */
+
+body[data-offline="true"]::before {
+  content: 'Offline mode';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--color-warning-600);
+  color: white;
+  text-align: center;
+  font-size: var(--text-sm);
+  padding: var(--spacing-sm);
+  z-index: var(--z-fixed);
+}
+
+/* ========================================
+   ACCESSIBILITY - Focus Indicators
+   ======================================== */
+
+*:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline-offset: 2px;
+}
+
+/* ========================================
+   PROFESSIONAL LOADING STATES
+   ======================================== */
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.loading {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ========================================
+   MOBILE-SPECIFIC STYLES
+   ======================================== */
+
+body.mobile-view {
+  overflow: hidden;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+body.mobile-view #root {
+  height: 100vh;
+  height: -webkit-fill-available;
+  overflow: hidden;
+}
+
+/* Safe area padding for mobile devices */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+/* Hide scrollbars on mobile for cleaner look */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Touch-friendly tap targets */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* ========================================
+   PRINT STYLES - Professional Output
+   ======================================== */
+
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+}

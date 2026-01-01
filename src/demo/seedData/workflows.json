@@ -1,0 +1,1277 @@
+[
+  {
+    "id": "workflow-001",
+    "recordId": "workflow-001",
+    "tenantId": "demo-tenant",
+    "name": "Vaccination Reminder",
+    "description": "Send SMS and email reminders when pet vaccinations are expiring soon",
+    "objectType": "pet",
+    "status": "active",
+    "triggerType": "event",
+    "triggerConfig": {
+      "event": "pet.vaccination_expiring",
+      "daysBeforeExpiry": 30
+    },
+    "entryCondition": {
+      "triggerType": "event",
+      "eventType": "pet.vaccination_expiring",
+      "filterConfig": null,
+      "scheduleConfig": null
+    },
+    "enrolledTotal": 127,
+    "enrolledLast7Days": 12,
+    "completedTotal": 98,
+    "failedTotal": 2,
+    "createdAt": { "$daysFromNow": -45 },
+    "updatedAt": { "$daysFromNow": -2 },
+    "createdBy": "staff-001",
+    "steps": [
+      {
+        "id": "step-1",
+        "type": "action",
+        "actionType": "send_sms",
+        "name": "Send SMS Reminder",
+        "config": {
+          "template": "vaccination_reminder",
+          "message": "Hi {{owner.firstName}}, {{pet.name}}'s {{vaccination.type}} vaccination expires on {{vaccination.expiryDate}}. Book an appointment today!"
+        },
+        "position": 0
+      },
+      {
+        "id": "step-2",
+        "type": "wait",
+        "name": "Wait 3 Days",
+        "config": {
+          "duration": 3,
+          "unit": "days"
+        },
+        "position": 1
+      },
+      {
+        "id": "step-3",
+        "type": "determinator",
+        "name": "Check Booking Status",
+        "config": {
+          "branches": [
+            {
+              "id": "booked",
+              "name": "Booked Appointment",
+              "order": 0,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "vaccination_status", "operator": "is_any_of", "values": ["current"] }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "not-booked",
+              "name": "No Booking Yet",
+              "order": 1,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "vaccination_status", "operator": "is_any_of", "values": ["expiring", "expired"] }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "none-matched",
+              "name": "None matched",
+              "order": 999,
+              "isDefault": true,
+              "conditions": null
+            }
+          ]
+        },
+        "position": 2
+      },
+      {
+        "id": "step-4",
+        "type": "action",
+        "actionType": "send_email",
+        "name": "Send Confirmation",
+        "config": {
+          "template": "vaccination_appointment_confirmed",
+          "subject": "Appointment Confirmed for {{pet.name}}"
+        },
+        "position": 0,
+        "parentStepId": "step-3",
+        "branchId": "booked"
+      },
+      {
+        "id": "step-5",
+        "type": "action",
+        "actionType": "send_email",
+        "name": "Send Urgent Follow-up",
+        "config": {
+          "template": "vaccination_reminder_followup",
+          "subject": "Urgent: {{pet.name}}'s vaccination is expiring soon"
+        },
+        "position": 0,
+        "parentStepId": "step-3",
+        "branchId": "not-booked"
+      },
+      {
+        "id": "step-6",
+        "type": "wait",
+        "name": "Wait 4 Days",
+        "config": {
+          "duration": 4,
+          "unit": "days"
+        },
+        "position": 1,
+        "parentStepId": "step-3",
+        "branchId": "not-booked"
+      },
+      {
+        "id": "step-7",
+        "type": "action",
+        "actionType": "create_task",
+        "name": "Create Follow-up Task",
+        "config": {
+          "taskType": "follow_up",
+          "title": "Call owner about expiring vaccination for {{pet.name}}",
+          "priority": "high"
+        },
+        "position": 2,
+        "parentStepId": "step-3",
+        "branchId": "not-booked"
+      }
+    ]
+  },
+  {
+    "id": "workflow-002",
+    "recordId": "workflow-002",
+    "tenantId": "demo-tenant",
+    "name": "Post-Checkout Follow-up",
+    "description": "Send thank you message and request review after checkout",
+    "objectType": "booking",
+    "status": "active",
+    "triggerType": "event",
+    "triggerConfig": {
+      "event": "booking.checked_out"
+    },
+    "entryCondition": {
+      "triggerType": "event",
+      "eventType": "booking.checked_out",
+      "filterConfig": null,
+      "scheduleConfig": null
+    },
+    "enrolledTotal": 89,
+    "enrolledLast7Days": 8,
+    "completedTotal": 85,
+    "failedTotal": 0,
+    "createdAt": { "$daysFromNow": -60 },
+    "updatedAt": { "$daysFromNow": -5 },
+    "createdBy": "staff-001",
+    "steps": [
+      {
+        "id": "step-1",
+        "type": "wait",
+        "name": "Wait 2 Hours",
+        "config": {
+          "duration": 2,
+          "unit": "hours"
+        },
+        "position": 0
+      },
+      {
+        "id": "step-2",
+        "type": "action",
+        "actionType": "send_sms",
+        "name": "Send Thank You SMS",
+        "config": {
+          "template": "thank_you_checkout",
+          "message": "Thank you for choosing us for {{pet.name}}'s stay! We hope to see you again soon."
+        },
+        "position": 1
+      },
+      {
+        "id": "step-3",
+        "type": "wait",
+        "name": "Wait 1 Day",
+        "config": {
+          "duration": 1,
+          "unit": "days"
+        },
+        "position": 2
+      },
+      {
+        "id": "step-4",
+        "type": "determinator",
+        "name": "Check Stay Duration",
+        "config": {
+          "branches": [
+            {
+              "id": "long-stay",
+              "name": "5+ Night Stay",
+              "order": 0,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "total_price", "operator": "is_greater_than", "value": 500 }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "regular",
+              "name": "Regular Stay",
+              "order": 1,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "total_price", "operator": "is_greater_than", "value": 100 },
+                    { "field": "total_price", "operator": "is_less_than_or_equal", "value": 500 }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "daycare",
+              "name": "Daycare Only",
+              "order": 2,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "total_price", "operator": "is_less_than_or_equal", "value": 100 }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "none-matched",
+              "name": "None matched",
+              "order": 999,
+              "isDefault": true,
+              "conditions": null
+            }
+          ]
+        },
+        "position": 3
+      },
+      {
+        "id": "step-5",
+        "type": "action",
+        "actionType": "send_email",
+        "name": "VIP Review Request",
+        "config": {
+          "template": "review_request_vip",
+          "subject": "How was {{pet.name}}'s extended stay?",
+          "includeDiscount": true,
+          "discountAmount": 15
+        },
+        "position": 0,
+        "parentStepId": "step-4",
+        "branchId": "long-stay"
+      },
+      {
+        "id": "step-6",
+        "type": "action",
+        "actionType": "send_email",
+        "name": "Standard Review Request",
+        "config": {
+          "template": "review_request",
+          "subject": "How was {{pet.name}}'s stay with us?"
+        },
+        "position": 0,
+        "parentStepId": "step-4",
+        "branchId": "regular"
+      },
+      {
+        "id": "step-7",
+        "type": "action",
+        "actionType": "send_email",
+        "name": "Daycare Feedback",
+        "config": {
+          "template": "daycare_feedback_request",
+          "subject": "How was {{pet.name}}'s day?"
+        },
+        "position": 0,
+        "parentStepId": "step-4",
+        "branchId": "daycare"
+      }
+    ]
+  },
+  {
+    "id": "workflow-003",
+    "recordId": "workflow-003",
+    "tenantId": "demo-tenant",
+    "name": "Booking Confirmation",
+    "description": "Send confirmation and pre-arrival instructions when booking is confirmed",
+    "objectType": "booking",
+    "status": "active",
+    "triggerType": "event",
+    "triggerConfig": {
+      "event": "booking.confirmed"
+    },
+    "entryCondition": {
+      "triggerType": "event",
+      "eventType": "booking.confirmed",
+      "filterConfig": null,
+      "scheduleConfig": null
+    },
+    "enrolledTotal": 156,
+    "enrolledLast7Days": 14,
+    "completedTotal": 152,
+    "failedTotal": 1,
+    "createdAt": { "$daysFromNow": -90 },
+    "updatedAt": { "$daysFromNow": -1 },
+    "createdBy": "staff-001",
+    "steps": [
+      {
+        "id": "step-1",
+        "type": "action",
+        "actionType": "send_email",
+        "name": "Send Confirmation Email",
+        "config": {
+          "template": "booking_confirmation",
+          "subject": "Booking Confirmed: {{pet.name}} - {{booking.checkInDate}}"
+        },
+        "position": 0
+      },
+      {
+        "id": "step-2",
+        "type": "determinator",
+        "name": "Check Service Type",
+        "config": {
+          "branches": [
+            {
+              "id": "boarding",
+              "name": "Boarding",
+              "order": 0,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "service_type", "operator": "is_any_of", "values": ["BOARDING"] }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "grooming",
+              "name": "Grooming",
+              "order": 1,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "service_type", "operator": "is_any_of", "values": ["GROOMING"] }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "daycare",
+              "name": "Daycare",
+              "order": 2,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "service_type", "operator": "is_any_of", "values": ["DAYCARE"] }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "none-matched",
+              "name": "None matched",
+              "order": 999,
+              "isDefault": true,
+              "conditions": null
+            }
+          ]
+        },
+        "position": 1
+      },
+      {
+        "id": "step-3",
+        "type": "wait",
+        "name": "Wait Until Day Before",
+        "waitType": "date_property",
+        "config": {
+          "dateProperty": "check_in",
+          "timing": "before",
+          "offsetAmount": 1,
+          "offsetUnit": "days"
+        },
+        "position": 0,
+        "parentStepId": "step-2",
+        "branchId": "boarding"
+      },
+      {
+        "id": "step-4",
+        "type": "action",
+        "actionType": "send_sms",
+        "name": "Pre-Arrival Reminder",
+        "config": {
+          "template": "pre_arrival_reminder",
+          "message": "Reminder: {{pet.name}} checks in tomorrow at {{booking.checkInTime}}. Don't forget vaccination records!"
+        },
+        "position": 1,
+        "parentStepId": "step-2",
+        "branchId": "boarding"
+      },
+      {
+        "id": "step-5",
+        "type": "action",
+        "actionType": "create_task",
+        "name": "Prepare Kennel",
+        "config": {
+          "taskType": "cleaning",
+          "title": "Prepare kennel {{booking.kennelName}} for {{pet.name}}",
+          "assignTo": "cleaning_staff"
+        },
+        "position": 2,
+        "parentStepId": "step-2",
+        "branchId": "boarding"
+      },
+      {
+        "id": "step-6",
+        "type": "wait",
+        "name": "Wait Until Day Before",
+        "waitType": "date_property",
+        "config": {
+          "dateProperty": "appointment_date",
+          "timing": "before",
+          "offsetAmount": 1,
+          "offsetUnit": "days"
+        },
+        "position": 0,
+        "parentStepId": "step-2",
+        "branchId": "grooming"
+      },
+      {
+        "id": "step-7",
+        "type": "action",
+        "actionType": "send_sms",
+        "name": "Grooming Reminder",
+        "config": {
+          "template": "grooming_reminder",
+          "message": "Reminder: {{pet.name}}'s grooming appointment is tomorrow at {{booking.appointmentTime}}."
+        },
+        "position": 1,
+        "parentStepId": "step-2",
+        "branchId": "grooming"
+      },
+      {
+        "id": "step-8",
+        "type": "action",
+        "actionType": "send_sms",
+        "name": "Daycare Reminder",
+        "config": {
+          "template": "daycare_reminder",
+          "message": "See you tomorrow! {{pet.name}} is scheduled for daycare."
+        },
+        "position": 0,
+        "parentStepId": "step-2",
+        "branchId": "daycare"
+      }
+    ]
+  },
+  {
+    "id": "workflow-004",
+    "recordId": "workflow-004",
+    "tenantId": "demo-tenant",
+    "name": "New Client Welcome",
+    "description": "Welcome sequence for new pet owners with helpful information",
+    "objectType": "owner",
+    "status": "active",
+    "triggerType": "event",
+    "triggerConfig": {
+      "event": "owner.created"
+    },
+    "entryCondition": {
+      "triggerType": "event",
+      "eventType": "owner.created",
+      "filterConfig": null,
+      "scheduleConfig": null
+    },
+    "enrolledTotal": 45,
+    "enrolledLast7Days": 3,
+    "completedTotal": 41,
+    "failedTotal": 0,
+    "createdAt": { "$daysFromNow": -30 },
+    "updatedAt": { "$daysFromNow": -7 },
+    "createdBy": "staff-001",
+    "steps": [
+      {
+        "id": "step-1",
+        "type": "action",
+        "actionType": "send_email",
+        "name": "Send Welcome Email",
+        "config": {
+          "template": "welcome_email",
+          "subject": "Welcome to Happy Paws Pet Resort, {{owner.firstName}}!"
+        },
+        "position": 0
+      },
+      {
+        "id": "step-2",
+        "type": "wait",
+        "name": "Wait 2 Days",
+        "config": {
+          "duration": 2,
+          "unit": "days"
+        },
+        "position": 1
+      },
+      {
+        "id": "step-3",
+        "type": "determinator",
+        "name": "Check Pet Count",
+        "config": {
+          "branches": [
+            {
+              "id": "multi-pet",
+              "name": "Multiple Pets",
+              "order": 0,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "booking_count", "operator": "is_greater_than", "value": 1 }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "single-pet",
+              "name": "Single Pet",
+              "order": 1,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "booking_count", "operator": "is_less_than_or_equal", "value": 1 }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "none-matched",
+              "name": "None matched",
+              "order": 999,
+              "isDefault": true,
+              "conditions": null
+            }
+          ]
+        },
+        "position": 2
+      },
+      {
+        "id": "step-4",
+        "type": "action",
+        "actionType": "send_email",
+        "name": "Multi-Pet Discount",
+        "config": {
+          "template": "multi_pet_discount",
+          "subject": "Special offer for your fur family!",
+          "discountCode": "MULTIPET15"
+        },
+        "position": 0,
+        "parentStepId": "step-3",
+        "branchId": "multi-pet"
+      },
+      {
+        "id": "step-5",
+        "type": "action",
+        "actionType": "send_email",
+        "name": "Services Overview",
+        "config": {
+          "template": "services_overview",
+          "subject": "Discover all we offer for {{pet.name}}"
+        },
+        "position": 0,
+        "parentStepId": "step-3",
+        "branchId": "single-pet"
+      },
+      {
+        "id": "step-6",
+        "type": "wait",
+        "name": "Wait 5 Days",
+        "config": {
+          "duration": 5,
+          "unit": "days"
+        },
+        "position": 1,
+        "parentStepId": "step-3",
+        "branchId": "single-pet"
+      },
+      {
+        "id": "step-7",
+        "type": "action",
+        "actionType": "create_task",
+        "name": "Welcome Call Task",
+        "config": {
+          "taskType": "follow_up",
+          "title": "Welcome call to new client {{owner.firstName}} {{owner.lastName}}"
+        },
+        "position": 2,
+        "parentStepId": "step-3",
+        "branchId": "single-pet"
+      }
+    ]
+  },
+  {
+    "id": "workflow-005",
+    "recordId": "workflow-005",
+    "tenantId": "demo-tenant",
+    "name": "Invoice Overdue Reminder",
+    "description": "Send payment reminders for overdue invoices with escalation",
+    "objectType": "invoice",
+    "status": "paused",
+    "triggerType": "event",
+    "triggerConfig": {
+      "event": "invoice.overdue"
+    },
+    "entryCondition": {
+      "triggerType": "event",
+      "eventType": "invoice.overdue",
+      "filterConfig": null,
+      "scheduleConfig": null
+    },
+    "enrolledTotal": 23,
+    "enrolledLast7Days": 0,
+    "completedTotal": 18,
+    "failedTotal": 1,
+    "createdAt": { "$daysFromNow": -25 },
+    "updatedAt": { "$daysFromNow": -3 },
+    "createdBy": "staff-001",
+    "steps": [
+      {
+        "id": "step-1",
+        "type": "action",
+        "actionType": "send_email",
+        "name": "First Reminder",
+        "config": {
+          "template": "payment_reminder_1",
+          "subject": "Payment reminder: Invoice #{{invoice.number}}"
+        },
+        "position": 0
+      },
+      {
+        "id": "step-2",
+        "type": "wait",
+        "name": "Wait 5 Days",
+        "config": {
+          "duration": 5,
+          "unit": "days"
+        },
+        "position": 1
+      },
+      {
+        "id": "step-3",
+        "type": "determinator",
+        "name": "Check Payment Status",
+        "config": {
+          "branches": [
+            {
+              "id": "paid",
+              "name": "Paid",
+              "order": 0,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "status", "operator": "is_any_of", "values": ["paid"] }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "partial",
+              "name": "Partial Payment",
+              "order": 1,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "amount_paid", "operator": "is_greater_than", "value": 0 },
+                    { "field": "status", "operator": "is_none_of", "values": ["paid"] }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "unpaid",
+              "name": "Still Unpaid",
+              "order": 2,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "amount_paid", "operator": "is_equal_to", "value": 0 }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "none-matched",
+              "name": "None matched",
+              "order": 999,
+              "isDefault": true,
+              "conditions": null
+            }
+          ]
+        },
+        "position": 2
+      },
+      {
+        "id": "step-4",
+        "type": "action",
+        "actionType": "send_email",
+        "name": "Thank You for Payment",
+        "config": {
+          "template": "payment_received_thanks",
+          "subject": "Thank you for your payment!"
+        },
+        "position": 0,
+        "parentStepId": "step-3",
+        "branchId": "paid"
+      },
+      {
+        "id": "step-5",
+        "type": "action",
+        "actionType": "send_email",
+        "name": "Partial Payment Received",
+        "config": {
+          "template": "partial_payment_thanks",
+          "subject": "Payment received - remaining balance: ${{invoice.balanceDue}}"
+        },
+        "position": 0,
+        "parentStepId": "step-3",
+        "branchId": "partial"
+      },
+      {
+        "id": "step-6",
+        "type": "action",
+        "actionType": "send_sms",
+        "name": "Urgent SMS Reminder",
+        "config": {
+          "template": "payment_reminder_urgent",
+          "message": "Urgent: Invoice #{{invoice.number}} (${{invoice.amount}}) is overdue. Please pay to avoid service interruption."
+        },
+        "position": 0,
+        "parentStepId": "step-3",
+        "branchId": "unpaid"
+      },
+      {
+        "id": "step-7",
+        "type": "wait",
+        "name": "Wait 7 Days",
+        "config": {
+          "duration": 7,
+          "unit": "days"
+        },
+        "position": 1,
+        "parentStepId": "step-3",
+        "branchId": "unpaid"
+      },
+      {
+        "id": "step-8",
+        "type": "action",
+        "actionType": "create_task",
+        "name": "Escalate to Manager",
+        "config": {
+          "taskType": "urgent",
+          "title": "ESCALATION: Invoice #{{invoice.number}} - 12+ days overdue",
+          "assignTo": "manager",
+          "priority": "high"
+        },
+        "position": 2,
+        "parentStepId": "step-3",
+        "branchId": "unpaid"
+      }
+    ]
+  },
+  {
+    "id": "workflow-006",
+    "recordId": "workflow-006",
+    "tenantId": "demo-tenant",
+    "name": "Pet Birthday Celebration",
+    "description": "Send birthday wishes and special offer to pet owners",
+    "objectType": "pet",
+    "status": "active",
+    "triggerType": "event",
+    "triggerConfig": {
+      "event": "pet.birthday"
+    },
+    "entryCondition": {
+      "triggerType": "event",
+      "eventType": "pet.birthday",
+      "filterConfig": null,
+      "scheduleConfig": null
+    },
+    "enrolledTotal": 34,
+    "enrolledLast7Days": 2,
+    "completedTotal": 32,
+    "failedTotal": 0,
+    "createdAt": { "$daysFromNow": -20 },
+    "updatedAt": { "$daysFromNow": -4 },
+    "createdBy": "staff-002",
+    "steps": [
+      {
+        "id": "step-1",
+        "type": "determinator",
+        "name": "Check VIP Status",
+        "config": {
+          "branches": [
+            {
+              "id": "vip",
+              "name": "VIP Client",
+              "order": 0,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "weight", "operator": "is_greater_than", "value": 50 }
+                  ]
+                }, {
+                  "id": "group-2",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "is_neutered", "operator": "is_true" }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "regular",
+              "name": "Regular Client",
+              "order": 1,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "weight", "operator": "is_less_than_or_equal", "value": 50 },
+                    { "field": "is_neutered", "operator": "is_false" }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "none-matched",
+              "name": "None matched",
+              "order": 999,
+              "isDefault": true,
+              "conditions": null
+            }
+          ]
+        },
+        "position": 0
+      },
+      {
+        "id": "step-2",
+        "type": "action",
+        "actionType": "send_email",
+        "name": "VIP Birthday Email",
+        "config": {
+          "template": "pet_birthday_vip",
+          "subject": "Happy Birthday {{pet.name}}! A special gift inside...",
+          "includeGiftCard": true,
+          "giftCardAmount": 25
+        },
+        "position": 0,
+        "parentStepId": "step-1",
+        "branchId": "vip"
+      },
+      {
+        "id": "step-3",
+        "type": "action",
+        "actionType": "send_sms",
+        "name": "VIP Birthday SMS",
+        "config": {
+          "template": "birthday_vip_sms",
+          "message": "Happy Birthday {{pet.name}}! Check your email for a special $25 gift from us!"
+        },
+        "position": 1,
+        "parentStepId": "step-1",
+        "branchId": "vip"
+      },
+      {
+        "id": "step-4",
+        "type": "action",
+        "actionType": "send_email",
+        "name": "Birthday Email",
+        "config": {
+          "template": "pet_birthday",
+          "subject": "Happy Birthday {{pet.name}}!"
+        },
+        "position": 0,
+        "parentStepId": "step-1",
+        "branchId": "regular"
+      },
+      {
+        "id": "step-5",
+        "type": "action",
+        "actionType": "send_sms",
+        "name": "Birthday Discount SMS",
+        "config": {
+          "template": "birthday_discount",
+          "message": "Happy Birthday {{pet.name}}! Use code BDAY10 for 10% off your next visit!"
+        },
+        "position": 1,
+        "parentStepId": "step-1",
+        "branchId": "regular"
+      }
+    ]
+  },
+  {
+    "id": "workflow-007",
+    "recordId": "workflow-007",
+    "tenantId": "demo-tenant",
+    "name": "Re-engagement Campaign",
+    "description": "Reach out to clients who haven't booked in 60+ days",
+    "objectType": "owner",
+    "status": "draft",
+    "triggerType": "filter",
+    "triggerConfig": {
+      "conditions": {
+        "logic": "and",
+        "conditions": [
+          { "property": "last_booking_date", "operator": "is_more_than_days_ago", "value": 60 }
+        ]
+      }
+    },
+    "entryCondition": {
+      "triggerType": "filter",
+      "eventType": null,
+      "filterConfig": {
+        "logic": "and",
+        "conditions": [
+          { "property": "last_booking_date", "operator": "is_more_than_days_ago", "value": 60 }
+        ]
+      },
+      "scheduleConfig": null
+    },
+    "enrolledTotal": 0,
+    "enrolledLast7Days": 0,
+    "completedTotal": 0,
+    "failedTotal": 0,
+    "createdAt": { "$daysFromNow": -5 },
+    "updatedAt": { "$daysFromNow": -5 },
+    "createdBy": "staff-001",
+    "steps": [
+      {
+        "id": "step-1",
+        "type": "determinator",
+        "name": "Check Inactivity Period",
+        "config": {
+          "branches": [
+            {
+              "id": "very-long",
+              "name": "90+ Days Inactive",
+              "order": 0,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "total_spent", "operator": "is_greater_than", "value": 500 }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "long",
+              "name": "60-90 Days Inactive",
+              "order": 1,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "total_spent", "operator": "is_less_than_or_equal", "value": 500 }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "none-matched",
+              "name": "None matched",
+              "order": 999,
+              "isDefault": true,
+              "conditions": null
+            }
+          ]
+        },
+        "position": 0
+      },
+      {
+        "id": "step-2",
+        "type": "action",
+        "actionType": "send_email",
+        "name": "Win-Back Email",
+        "config": {
+          "template": "we_miss_you_urgent",
+          "subject": "We really miss {{pet.name}}! Here's 25% off",
+          "discountCode": "COMEBACK25",
+          "discountPercent": 25
+        },
+        "position": 0,
+        "parentStepId": "step-1",
+        "branchId": "very-long"
+      },
+      {
+        "id": "step-3",
+        "type": "action",
+        "actionType": "create_task",
+        "name": "Personal Outreach",
+        "config": {
+          "taskType": "follow_up",
+          "title": "Personal call to win back {{owner.firstName}} {{owner.lastName}}",
+          "priority": "high",
+          "notes": "Client hasn't visited in 90+ days. Offer personalized incentive."
+        },
+        "position": 1,
+        "parentStepId": "step-1",
+        "branchId": "very-long"
+      },
+      {
+        "id": "step-4",
+        "type": "action",
+        "actionType": "send_email",
+        "name": "We Miss You Email",
+        "config": {
+          "template": "we_miss_you",
+          "subject": "We miss seeing {{pet.name}}!"
+        },
+        "position": 0,
+        "parentStepId": "step-1",
+        "branchId": "long"
+      },
+      {
+        "id": "step-5",
+        "type": "wait",
+        "name": "Wait 7 Days",
+        "config": {
+          "duration": 7,
+          "unit": "days"
+        },
+        "position": 1,
+        "parentStepId": "step-1",
+        "branchId": "long"
+      },
+      {
+        "id": "step-6",
+        "type": "action",
+        "actionType": "send_sms",
+        "name": "Special Offer SMS",
+        "config": {
+          "template": "special_offer",
+          "message": "Hey {{owner.firstName}}! Book this week and get 15% off. Use code: RETURN15"
+        },
+        "position": 2,
+        "parentStepId": "step-1",
+        "branchId": "long"
+      }
+    ]
+  },
+  {
+    "id": "workflow-008",
+    "recordId": "workflow-008",
+    "tenantId": "demo-tenant",
+    "name": "Check-in Day Preparation",
+    "description": "Create preparation tasks and handle special needs for arriving pets",
+    "objectType": "booking",
+    "status": "active",
+    "triggerType": "schedule",
+    "triggerConfig": {
+      "frequency": "daily",
+      "time": "08:00"
+    },
+    "entryCondition": {
+      "triggerType": "schedule",
+      "eventType": null,
+      "filterConfig": null,
+      "scheduleConfig": {
+        "frequency": "daily",
+        "time": "08:00"
+      }
+    },
+    "enrolledTotal": 67,
+    "enrolledLast7Days": 9,
+    "completedTotal": 65,
+    "failedTotal": 0,
+    "createdAt": { "$daysFromNow": -40 },
+    "updatedAt": { "$daysFromNow": -1 },
+    "createdBy": "staff-001",
+    "steps": [
+      {
+        "id": "step-1",
+        "type": "action",
+        "actionType": "create_task",
+        "name": "Prepare Kennel",
+        "config": {
+          "taskType": "cleaning",
+          "title": "Prepare kennel {{booking.kennelName}} for {{pet.name}}'s arrival",
+          "assignTo": "cleaning_staff"
+        },
+        "position": 0
+      },
+      {
+        "id": "step-2",
+        "type": "determinator",
+        "name": "Check Special Needs",
+        "config": {
+          "branches": [
+            {
+              "id": "medical",
+              "name": "Medical Needs",
+              "order": 0,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "special_requests", "operator": "is_known" }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "behavioral",
+              "name": "Behavioral Notes",
+              "order": 1,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "internal_notes", "operator": "is_known" }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "standard",
+              "name": "Standard Care",
+              "order": 2,
+              "conditions": {
+                "groups": [{
+                  "id": "group-1",
+                  "logic": "and",
+                  "conditions": [
+                    { "field": "special_requests", "operator": "is_unknown" },
+                    { "field": "internal_notes", "operator": "is_unknown" }
+                  ]
+                }],
+                "groupLogic": "or"
+              }
+            },
+            {
+              "id": "none-matched",
+              "name": "None matched",
+              "order": 999,
+              "isDefault": true,
+              "conditions": null
+            }
+          ]
+        },
+        "position": 1
+      },
+      {
+        "id": "step-3",
+        "type": "action",
+        "actionType": "create_task",
+        "name": "Review Medical Records",
+        "config": {
+          "taskType": "medical",
+          "title": "Review medical records for {{pet.name}} - {{pet.medicalNotes}}",
+          "assignTo": "pet_care_manager",
+          "priority": "high"
+        },
+        "position": 0,
+        "parentStepId": "step-2",
+        "branchId": "medical"
+      },
+      {
+        "id": "step-4",
+        "type": "action",
+        "actionType": "create_task",
+        "name": "Prepare Medications",
+        "config": {
+          "taskType": "medical",
+          "title": "Prepare and label medications for {{pet.name}}",
+          "assignTo": "pet_care_staff"
+        },
+        "position": 1,
+        "parentStepId": "step-2",
+        "branchId": "medical"
+      },
+      {
+        "id": "step-5",
+        "type": "action",
+        "actionType": "create_task",
+        "name": "Review Behavioral Notes",
+        "config": {
+          "taskType": "general",
+          "title": "Brief staff on {{pet.name}}'s behavioral needs",
+          "notes": "{{pet.behavioralNotes}}",
+          "assignTo": "shift_supervisor"
+        },
+        "position": 0,
+        "parentStepId": "step-2",
+        "branchId": "behavioral"
+      },
+      {
+        "id": "step-6",
+        "type": "action",
+        "actionType": "create_task",
+        "name": "Standard Profile Review",
+        "config": {
+          "taskType": "general",
+          "title": "Review pet profile and special requirements for {{pet.name}}"
+        },
+        "position": 0,
+        "parentStepId": "step-2",
+        "branchId": "standard"
+      }
+    ]
+  }
+]
